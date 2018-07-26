@@ -30,19 +30,25 @@ class DocToPDF
      * Converter name
      * @var string
      */
-    private $converter = 'soffice';
+    protected $converter = 'soffice';
 
     /**
      * File to convert
      * @var string
      */
-    private $filename;
+    protected $filename;
 
     /**
      * Target dir for file
      * @var string
      */
     private $targetDir;
+
+    /**
+     * Try convert file if not supported by default
+     * @var bool
+     */
+    private $try = false;
 
     /**
      * Types soffice can convert
@@ -82,12 +88,22 @@ class DocToPDF
     /**
      * DocToPDF constructor.
      * @param string $filename
+     * @param bool $try
      * @throws FileNotFoundException
+     * @throws \Exception
      */
-    public function __construct(string $filename)
+    public function __construct(string $filename, bool $try = false)
     {
         if (! file_exists($filename)) {
             throw new FileNotFoundException('File `' . $filename . '` not found!');
+        }
+
+        if (! $try) {
+            $extension = pathinfo($filename, PATHINFO_EXTENSION);
+
+            if (! in_array($extension, static::TYPES)) {
+                throw new \Exception('Extension does not supported, make $try `true` to ignore this message.');
+            }
         }
 
         $this->filename = $filename;
@@ -122,12 +138,12 @@ class DocToPDF
     {
         if (! file_exists($targetDir)) {
             if (! @mkdir($targetDir)) {
-                throw new FileNotFoundException('Directory `' . $targetDir . '` is not found');
+                throw new FileNotFoundException('Directory `' . $targetDir . '` is not found!');
             }
         }
 
         if (! is_writable($targetDir)) {
-            throw new NotWritableException('Directory `' . $targetDir . '` is not writable');
+            throw new NotWritableException('Directory `' . $targetDir . '` is not writable!');
         }
 
         $this->targetDir = $targetDir;
@@ -140,9 +156,18 @@ class DocToPDF
     public function setConverter(string $converter)
     {
         if (stristr(`type $converter`, 'not found')) {
-            throw new ExecException('Converter `' . $converter . '` not found');
+            throw new ExecException('Converter `' . $converter . '` not found!');
         }
+
         $this->converter = $converter;
+    }
+
+    /**
+     * @param bool $try
+     */
+    public function setTry(bool $try)
+    {
+        $this->try = $try;
     }
 
 }
