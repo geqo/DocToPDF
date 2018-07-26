@@ -45,12 +45,6 @@ class DocToPDF
     private $targetDir;
 
     /**
-     * Try convert file if not supported by default
-     * @var bool
-     */
-    private $try = false;
-
-    /**
      * Types soffice can convert
      * @var array
      */
@@ -88,7 +82,7 @@ class DocToPDF
     /**
      * DocToPDF constructor.
      * @param string $filename
-     * @param bool $try
+     * @param bool $try Try convert file if not supported by default
      * @throws FileNotFoundException
      * @throws \Exception
      */
