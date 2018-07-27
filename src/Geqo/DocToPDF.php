@@ -156,12 +156,4 @@ class DocToPDF
         $this->converter = $converter;
     }
 
-    /**
-     * @param bool $try
-     */
-    public function setTry(bool $try)
-    {
-        $this->try = $try;
-    }
-
 }
