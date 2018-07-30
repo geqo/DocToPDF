@@ -45,6 +45,13 @@ class DocToPDF
     private $targetDir;
 
     /**
+     * http://php.net/manual/ru/function.escapeshellarg.php#99213
+     * For russian characters use ru_RU.UTF-8
+     * @var string
+     */
+    private $locale = 'en_US.UTF-8';
+
+    /**
      * Types soffice can convert
      * @var array
      */
@@ -109,6 +116,8 @@ class DocToPDF
      */
     public function execute()
     {
+        setlocale(LC_CTYPE, "en_US.UTF-8");
+
         $command = 'export HOME=/tmp && ' . $this->converter .
             ' --headless --convert-to pdf --outdir ' . escapeshellarg($this->targetDir) .
             ' ' . escapeshellarg($this->filename) . ' 2>&1';
@@ -154,6 +163,14 @@ class DocToPDF
         }
 
         $this->converter = $converter;
+    }
+
+    /**
+     * @param string $locale
+     */
+    public function setLocale(string $locale)
+    {
+        $this->locale = $locale;
     }
 
 }
