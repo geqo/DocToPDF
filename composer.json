@@ -10,7 +10,10 @@
             "email": "dev@geqo.ru"
         }
     ],
-    "require": {},
+    "require": {
+        "php": ">=7.0"
+    },
+    "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
             "Geqo\\": "src/Geqo/"
