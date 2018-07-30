@@ -116,7 +116,7 @@ class DocToPDF
      */
     public function execute()
     {
-        setlocale(LC_CTYPE, "en_US.UTF-8");
+        setlocale(LC_CTYPE, $this->locale);
 
         $command = 'export HOME=/tmp && ' . $this->converter .
             ' --headless --convert-to pdf --outdir ' . escapeshellarg($this->targetDir) .
