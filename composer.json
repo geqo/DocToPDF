@@ -1,6 +1,7 @@
 {
     "name": "geqo/doctopdf",
     "description": "Docs to pdf converter, using openoffice command line interface",
+    "keywords": ["doc", "pdf", "converter", "openoffice", "office"],
     "type": "library",
     "license": "Apache-2.0",
     "authors": [
@@ -9,7 +10,6 @@
             "email": "dev@geqo.ru"
         }
     ],
-    "minimum-stability": "dev",
     "require": {},
     "autoload": {
         "psr-4": {
