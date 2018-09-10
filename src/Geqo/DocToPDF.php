@@ -119,7 +119,7 @@ class DocToPDF
         setlocale(LC_CTYPE, $this->locale);
 
         $command = 'export HOME=/tmp && ' . $this->converter .
-            ' --headless --convert-to pdf --outdir ' . escapeshellarg($this->targetDir) .
+            ' --headless --convert-to pdf:writer_pdf_Export --outdir ' . escapeshellarg($this->targetDir) .
             ' ' . escapeshellarg($this->filename) . ' 2>&1';
 
         exec($command, $output, $return);
